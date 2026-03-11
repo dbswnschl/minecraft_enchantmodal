@@ -23,6 +23,7 @@ import java.util.Map;
 
 public class EnchantModalScreen extends Screen {
     private EnchantmentListWidget enchantmentList;
+    private Map<String, Integer> pendingPreset;
 
     public EnchantModalScreen(Component title) {
         super(title);
@@ -62,6 +63,12 @@ public class EnchantModalScreen extends Screen {
         }
 
         this.addRenderableWidget(this.enchantmentList);
+
+        // 대기 중인 프리셋이 있으면 적용
+        if (this.pendingPreset != null) {
+            applyPreset(this.pendingPreset);
+            this.pendingPreset = null;
+        }
 
         // 하단 버튼 배치: [프리셋 저장] [프리셋 불러오기] [적용] [취소]
         int buttonWidth = 80;
@@ -107,7 +114,9 @@ public class EnchantModalScreen extends Screen {
     }
 
     private void openPresetLoad() {
-        this.minecraft.setScreen(new PresetListScreen(this, this::applyPreset));
+        this.minecraft.setScreen(new PresetListScreen(this, preset -> {
+            this.pendingPreset = preset;
+        }));
     }
 
     private void applyPreset(Map<String, Integer> preset) {
