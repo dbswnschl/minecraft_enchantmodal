@@ -2,6 +2,14 @@
   "gui.enchantmodal.title": "인챈트 구성",
   "gui.enchantmodal.apply": "적용",
   "gui.enchantmodal.cancel": "취소",
+  "gui.enchantmodal.preset_save": "프리셋 저장",
+  "gui.enchantmodal.preset_load": "프리셋 불러오기",
+  "gui.enchantmodal.preset_name_title": "프리셋 이름 입력",
+  "gui.enchantmodal.preset_name": "프리셋 이름",
+  "gui.enchantmodal.preset_load_title": "프리셋 불러오기",
+  "gui.enchantmodal.save": "저장",
+  "gui.enchantmodal.load": "불러오기",
+  "gui.enchantmodal.delete": "삭제",
   "commands.enchantmodal.no_item": "손에 아이템을 들고 있어야 합니다.",
   "commands.enchantmodal.opened": "인챈트 구성 창을 열었습니다."
 }

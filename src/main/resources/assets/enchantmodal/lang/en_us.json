@@ -2,6 +2,14 @@
   "gui.enchantmodal.title": "Enchantment Configuration",
   "gui.enchantmodal.apply": "Apply",
   "gui.enchantmodal.cancel": "Cancel",
+  "gui.enchantmodal.preset_save": "Save Preset",
+  "gui.enchantmodal.preset_load": "Load Preset",
+  "gui.enchantmodal.preset_name_title": "Enter Preset Name",
+  "gui.enchantmodal.preset_name": "Preset name",
+  "gui.enchantmodal.preset_load_title": "Load Preset",
+  "gui.enchantmodal.save": "Save",
+  "gui.enchantmodal.load": "Load",
+  "gui.enchantmodal.delete": "Delete",
   "commands.enchantmodal.no_item": "You must be holding an item.",
   "commands.enchantmodal.opened": "Opened enchantment configuration."
 }

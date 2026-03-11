@@ -48,7 +48,6 @@ public class EnchantModalScreen extends Screen {
         HolderLookup.RegistryLookup<Enchantment> lookup = Minecraft.getInstance().player.connection
             .registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
 
-        // listElements()로 클라이언트에 동기화된 인챈트 홀더 목록 가져오기
         List<Holder.Reference<Enchantment>> holders = lookup.listElements()
             .sorted(Comparator.comparing(h -> h.key().identifier().toString()))
             .toList();
@@ -57,7 +56,6 @@ public class EnchantModalScreen extends Screen {
             int existingLevel = existingEnchants.getLevel(holder);
             boolean enabled = existingLevel > 0;
             int level = enabled ? existingLevel : 1;
-            int maxLevel = holder.value().getMaxLevel();
             this.enchantmentList.add(
                 new EnchantmentListWidget.EnchantmentEntry(holder, enabled, level, 255)
             );
@@ -65,29 +63,69 @@ public class EnchantModalScreen extends Screen {
 
         this.addRenderableWidget(this.enchantmentList);
 
+        // 하단 버튼 배치: [프리셋 저장] [프리셋 불러오기] [적용] [취소]
         int buttonWidth = 80;
         int buttonY = this.height - 40;
+        int totalWidth = buttonWidth * 4 + 5 * 3; // 4 buttons + 3 gaps
+        int startX = (this.width - totalWidth) / 2;
+
+        this.addRenderableWidget(Button.builder(
+            Component.translatable("gui.enchantmodal.preset_save"),
+            btn -> openPresetSave()
+        ).bounds(startX, buttonY, buttonWidth, 20).build());
+
+        this.addRenderableWidget(Button.builder(
+            Component.translatable("gui.enchantmodal.preset_load"),
+            btn -> openPresetLoad()
+        ).bounds(startX + buttonWidth + 5, buttonY, buttonWidth, 20).build());
+
         this.addRenderableWidget(Button.builder(
             Component.translatable("gui.enchantmodal.apply"),
             btn -> applyEnchantments()
-        ).bounds(this.width / 2 - buttonWidth - 5, buttonY, buttonWidth, 20).build());
+        ).bounds(startX + (buttonWidth + 5) * 2, buttonY, buttonWidth, 20).build());
 
         this.addRenderableWidget(Button.builder(
             Component.translatable("gui.enchantmodal.cancel"),
             btn -> onClose()
-        ).bounds(this.width / 2 + 5, buttonY, buttonWidth, 20).build());
+        ).bounds(startX + (buttonWidth + 5) * 3, buttonY, buttonWidth, 20).build());
     }
 
-    private void applyEnchantments() {
+    private Map<Identifier, Integer> collectCurrentEnchantments() {
         Map<Identifier, Integer> selected = new HashMap<>();
-
         for (int i = 0; i < this.enchantmentList.children().size(); i++) {
             EnchantmentListWidget.EnchantmentEntry entry = this.enchantmentList.children().get(i);
             if (entry.isEnabled()) {
                 selected.put(entry.getEnchantmentId(), entry.getLevel());
             }
         }
+        return selected;
+    }
 
+    private void openPresetSave() {
+        Map<Identifier, Integer> current = collectCurrentEnchantments();
+        this.minecraft.setScreen(new PresetNameScreen(this, current));
+    }
+
+    private void openPresetLoad() {
+        this.minecraft.setScreen(new PresetListScreen(this, this::applyPreset));
+    }
+
+    private void applyPreset(Map<String, Integer> preset) {
+        for (int i = 0; i < this.enchantmentList.children().size(); i++) {
+            EnchantmentListWidget.EnchantmentEntry entry = this.enchantmentList.children().get(i);
+            Identifier id = entry.getEnchantmentId();
+            if (id != null && preset.containsKey(id.toString())) {
+                entry.setEnabled(true);
+                entry.setLevel(preset.get(id.toString()));
+            } else {
+                entry.setEnabled(false);
+                entry.setLevel(1);
+            }
+        }
+    }
+
+    private void applyEnchantments() {
+        Map<Identifier, Integer> selected = collectCurrentEnchantments();
         ModPacketHandler.CHANNEL.send(new ApplyEnchantmentsPacket(selected), PacketDistributor.SERVER.noArg());
         onClose();
     }

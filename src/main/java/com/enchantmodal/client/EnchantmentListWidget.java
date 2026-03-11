@@ -55,8 +55,16 @@ public class EnchantmentListWidget extends ObjectSelectionList<EnchantmentListWi
             return enabled;
         }
 
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
         public int getLevel() {
             return level;
+        }
+
+        public void setLevel(int level) {
+            this.level = Math.max(1, Math.min(level, maxLevel));
         }
 
         public Identifier getEnchantmentId() {
