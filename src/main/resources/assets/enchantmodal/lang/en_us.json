@@ -1,0 +1,7 @@
+{
+  "gui.enchantmodal.title": "Enchantment Configuration",
+  "gui.enchantmodal.apply": "Apply",
+  "gui.enchantmodal.cancel": "Cancel",
+  "commands.enchantmodal.no_item": "You must be holding an item.",
+  "commands.enchantmodal.opened": "Opened enchantment configuration."
+}

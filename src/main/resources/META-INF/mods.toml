@@ -1,0 +1,23 @@
+modLoader = "javafml"
+loaderVersion = "[61,)"
+license = "MIT"
+
+[[mods]]
+modId = "enchantmodal"
+version = "${file.jarVersion}"
+displayName = "Enchant Modal"
+description = '''인챈트 모달 - 명령어로 장비에 인챈트를 자유롭게 구성할 수 있는 GUI 모드'''
+
+[[dependencies.enchantmodal]]
+modId = "forge"
+mandatory = true
+versionRange = "[61,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.enchantmodal]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21.11,1.22)"
+ordering = "NONE"
+side = "BOTH"

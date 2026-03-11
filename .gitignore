@@ -1,0 +1,24 @@
+# Gradle
+.gradle/
+build/
+run/
+src/generated/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.eclipse/
+.settings/
+.classpath
+.project
+bin/
+out/
+
+# Forge docs (reference only)
+forge_docs/
+
+# OS
+.DS_Store
+Thumbs.db
