@@ -1,5 +1,7 @@
 {
   "gui.enchantmodal.title": "인챈트 구성",
+  "gui.enchantmodal.tab_enchant": "인챈트",
+  "gui.enchantmodal.tab_potion": "포션 효과",
   "gui.enchantmodal.apply": "적용",
   "gui.enchantmodal.cancel": "취소",
   "gui.enchantmodal.preset_save": "프리셋 저장",

@@ -1,5 +1,7 @@
 {
   "gui.enchantmodal.title": "Enchantment Configuration",
+  "gui.enchantmodal.tab_enchant": "Enchantments",
+  "gui.enchantmodal.tab_potion": "Potion Effects",
   "gui.enchantmodal.apply": "Apply",
   "gui.enchantmodal.cancel": "Cancel",
   "gui.enchantmodal.preset_save": "Save Preset",

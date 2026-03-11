@@ -25,5 +25,11 @@ public class ModPacketHandler {
             .decoder(ApplyEnchantmentsPacket::decode)
             .consumerMainThread(ApplyEnchantmentsPacket::handle)
             .add();
+
+        CHANNEL.messageBuilder(ApplyPotionEffectsPacket.class)
+            .encoder(ApplyPotionEffectsPacket::encode)
+            .decoder(ApplyPotionEffectsPacket::decode)
+            .consumerMainThread(ApplyPotionEffectsPacket::handle)
+            .add();
     }
 }

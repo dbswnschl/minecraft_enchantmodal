@@ -4,6 +4,7 @@ import com.enchantmodal.command.EnchantModalCommand;
 import com.enchantmodal.network.ModPacketHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.eventbus.api.bus.EventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -27,6 +28,8 @@ public class EnchantModal {
             BusGroup forgeBusGroup = (BusGroup) groupField.get(MinecraftForge.EVENT_BUS);
             EventBus.create(forgeBusGroup, RegisterCommandsEvent.class)
                 .addListener(this::onRegisterCommands);
+            EventBus.create(forgeBusGroup, TickEvent.PlayerTickEvent.Post.class)
+                .addListener(EquipmentEffectHandler::onPlayerTick);
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Failed to access Forge event bus group", e);
         }
